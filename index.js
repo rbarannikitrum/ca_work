@@ -22,7 +22,7 @@ function edit(elVersion, i) {
         document.querySelector('button').remove()
     }
     const input = document.createElement('input')
-    let newData
+    let newData = elVersion.innerText
     input.addEventListener('change', (e) => {
         newData = e.target.value
     })
