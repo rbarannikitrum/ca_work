@@ -5,7 +5,6 @@ async function sendData() {
     login: login,
     password: password,
   }
-  console.log(JSON.stringify(sendObj))
   await fetch("http://localhost:8080/login", {
     method: "POST",
     headers: {
