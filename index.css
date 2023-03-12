@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    width: 300px;
+    gap: 10px;
+    flex-direction: column;
+    padding: 30px;
+}
+
+div {
+    opacity: 0%;
+    width: 200px;
+    border: 1px solid green;
+}
+
+div:hover {
+  opacity: 100%;
+  transition: opacity 1s;
+}
