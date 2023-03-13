@@ -1,30 +1,45 @@
+/* Файл date-utils.js */
+const MSEC_IN_DAY = 86400000;
+const MSEC_IN_HOUR = 3600000;
+const MSEC_IN_MINUTE = 60000;
+
 function getCurrentDate() {
-    return new Date()
+    return new Date();
 }
 
-function dateToString() {
-    const today = new Date();
-    const dateSrc = today.toLocaleString('ru-RU', { year: 'numeric', month: 'numeric', day: 'numeric' });
-    return dateSrc.split(".").reverse().join("-");
+function convertDateToString(date) {
+    return date.toISOString();
 }
 
-function stringToDate(date) {
-    return Date.parse(date)
+function convertStringToDate(str) {
+    return new Date(Date.parse(str));
 }
 
-function diffDates(date1, date2) {
-    date1 = new Date(date1);
-    date2 = new Date(date2);
-    let years = (date1 - date2) / (1000 * 3600 * 24 * 365)
-    let days = (date1 - date2) / (1000 * 3600 * 24) - ((Math.floor(years)) * 365)
-    let hours = (days - Math.floor(days)) * 24
-    let mins = (hours - Math.floor(hours)) * 60;
-    let secs = Math.floor((mins - Math.floor(mins)) * 60);
-    years = Math.floor(years)
-    days = Math.floor(days);
-    hours = Math.floor(hours);
-    mins = Math.floor(mins);
-    return `${years} years, ${days} days, ${hours} hours, ${mins} minutes and ${secs} seconds`
+function calculateDaysBetweenDates(startDate, endDate) {
+    const start = getNormalTime(startDate).getTime();
+    const end = getNormalTime(endDate).getTime();
+    const diff = Math.abs(end - start);
+    return Math.floor(diff / MSEC_IN_DAY);
 }
 
-export { getCurrentDate, dateToString, stringToDate, diffDates };
+function calculateHoursBetweenDates(startDate, endDate) {
+    const start = startDate.getTime();
+    const end = endDate.getTime();
+    const diff = Math.abs(end - start);
+    return Math.floor(diff / MSEC_IN_HOUR);
+}
+
+function calculateMinutesBetweenDates(startDate, endDate) {
+    const start = startDate.getTime();
+    const end = endDate.getTime();
+    const diff = Math.abs(end - start);
+    return Math.floor(diff / MSEC_IN_MINUTE);
+}
+
+function getNormalTime(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+console.log(calculateHoursBetweenDates(new Date('12.02.2001'), new Date('11.11.1999')))
+
+module.exports = { getCurrentDate, convertDateToString, convertStringToDate, calculateDaysBetweenDates, calculateHoursBetweenDates, calculateMinutesBetweenDates };
