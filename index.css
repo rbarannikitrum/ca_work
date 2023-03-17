@@ -16,3 +16,8 @@ div:hover {
   opacity: 100%;
   transition: opacity 1s;
 }
+
+div:not(:hover) {
+  opacity: 0;
+  transition: opacity 1s;
+}
