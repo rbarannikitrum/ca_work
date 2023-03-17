@@ -6,4 +6,9 @@ function correctIP(ip) {
     return ipArr.length === 4
 }
 
+function correctIpRegExp (ip) {
+    return /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$/
+.test(ip)
+}
+
 console.log(correctIP('255.255.0.0'))
