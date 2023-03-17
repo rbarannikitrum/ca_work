@@ -31,6 +31,7 @@ function render() {
 
 function addNote() {
     const newNote = document.querySelector('input').value
+    document.querySelector('input').value = ''
     noteArray.push(newNote)
     render()
 }
@@ -41,6 +42,7 @@ function edit(i) {
     const editDiv = document.createElement('div')
     const editInput = document.createElement('input')
     editInput.id = 'input' + i
+    editInput.value = noteArray[i]
     editDiv.appendChild(editInput)
     const saveButton = document.createElement('button')
     saveButton.innerText = 'save'
