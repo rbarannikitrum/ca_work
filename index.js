@@ -12,4 +12,10 @@ function checkPhoneNumber(phone) {
     return false
 }
 
-console.log(checkPhoneNumber('+7(903)4a3-8275'))
+
+function checkRegExp(phone) {
+    return /(\+7|8)[- _]*\(?[- _]*(\d{3}[- _]*\)?([- _]*\d){7}|\d\d[- _]*\d\d[- _]*\)?([- _]*\d){6})/g.test(phone)
+}
+
+
+console.log(checkRegExp('+7(903)473-8275'))
