@@ -1,0 +1,121 @@
+<!-- eslint-disable max-len -->
+<p-toast></p-toast>
+<app-header></app-header>
+
+<div class="card">
+  <p-table
+    #dt
+    [value]="workersList"
+    [rows]="10"
+    [paginator]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    dataKey="id"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Workers</h5>
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2"
+          (click)="openNew()"
+        ></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 10rem">Full Name</th>
+        <th style="width: 20rem">Email</th>
+        <th>Team</th>
+        <th>Status</th>
+        <th style="width: 8rem">City</th>
+        <th>Remove</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-worker>
+      <tr (click)="editWorker(worker)">
+        <td>{{ worker.fullName }}</td>
+        <td>{{ worker.email }}</td>
+        <td>{{ worker.team || 'No info about team' }}</td>
+        <td>{{ worker.status }}</td>
+        <td>{{ getCity(worker) }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteWorker(worker, $event)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ workersList ? workersList.length : 0 }} workers.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="workerDialog"
+  [style]="{ width: '450px' }"
+  header="Worker Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="fullName">FullName</label>
+      <input
+        type="text"
+        pInputText
+        id="fullName"
+        [(ngModel)]="worker.fullName"
+        required
+        autofocus
+      />
+      <small class="p-error" *ngIf="submitted && !worker.fullName">Name is required.</small>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="text" pInputText id="email" [(ngModel)]="worker.email" required />
+    </div>
+
+    <div class="field">
+      <label for="team">Team</label>
+      <input type="text" pInputText id="team" [(ngModel)]="worker.team" required />
+    </div>
+
+    <div class="field">
+      <label for="status">Worker Status</label>
+      <input type="text" pInputText id="status" [(ngModel)]="worker.status" required />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveWorker()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
