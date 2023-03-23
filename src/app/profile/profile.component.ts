@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
@@ -12,10 +13,7 @@ export class ProfileComponent implements OnInit {
 
   public userInfo: FormGroup = new FormGroup({
     login: new FormControl({ value: '', disabled: true }),
-    password: new FormControl({ value: '', disabled: true }, [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+    password: new FormControl({ value: '', disabled: true }, Validators.required),
     phoneNumber: new FormControl('', [
       Validators.required,
       Validators.pattern(

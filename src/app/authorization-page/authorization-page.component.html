@@ -8,8 +8,10 @@
       [toggleMask]="true"
     ></p-password>
     <div class="buttons">
-      <button pButton (click)="register()">Register</button>
-      <button pButton type="submit" (click)="authorization()">Login</button>
+      <button pButton (click)="register()" [disabled]="this.authForm.invalid">Register</button>
+      <button pButton type="submit" (click)="authorization()" [disabled]="this.authForm.invalid">
+        Login
+      </button>
     </div>
   </form>
 
