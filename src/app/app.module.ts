@@ -24,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkersTableComponent } from './workers-table/workers-table.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

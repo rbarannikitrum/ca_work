@@ -81,6 +81,7 @@ export class AuthService {
   }
 
   public logout() {
+    localStorage.removeItem('active_user');
     this.authStatus = false;
     this.router.navigate(['']);
   }
