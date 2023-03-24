@@ -4,14 +4,14 @@
   justify-content: space-between;
   align-items: center;
 
-  :host ::ng-deep .p-toolbar {
-    background: rgb(226, 226, 252);
-    border-radius: 0;
-    border: none;
-  }
-
   img {
     width: 40px;
     height: 40px;
   }
+}
+
+:host ::ng-deep .p-toolbar {
+  background: rgb(226, 226, 252);
+  border-radius: 0;
+  border: none;
 }
