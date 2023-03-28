@@ -1,0 +1,25 @@
+<div class="container">
+  <form [formGroup]="authForm" (ngSubmit)="authorization()">
+    <input formControlName="login" pInputText placeholder="login" autofocus />
+    <p-password
+      formControlName="password"
+      placeholder="password"
+      [feedback]="false"
+      [toggleMask]="true"
+    ></p-password>
+    <small id="password">Should contain at least 8 letters</small>
+
+    <div class="buttons">
+      <button pButton (click)="register()" [disabled]="this.authForm.invalid">Register</button>
+      <button pButton type="submit" (click)="authorization()" [disabled]="this.authForm.invalid">
+        Login
+      </button>
+    </div>
+  </form>
+
+  <p-messages severity="error" *ngIf="this.auth.err">
+    <ng-template pTemplate>
+      <div class="ml-2">Login Error</div>
+    </ng-template>
+  </p-messages>
+</div>

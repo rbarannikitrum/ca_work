@@ -1,0 +1,12 @@
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <div class="container">
+      <img src="../../assets/user-profile-4255.svg" (click)="goToProfile()" />
+      <div style="display: flex; gap: 10px">
+        <button pButton pRipple label="Home" class="" (click)="goToHome()"></button>
+
+        <button pButton pRipple label="Logout" class="p-button-danger" (click)="logOut()"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-toolbar>

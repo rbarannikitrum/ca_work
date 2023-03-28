@@ -1,0 +1,12 @@
+div {
+  display: flex;
+  justify-content: center;
+
+  form {
+  width: 40%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+}

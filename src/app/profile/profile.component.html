@@ -1,0 +1,22 @@
+<app-header></app-header>
+
+<div>
+  <form [formGroup]="userInfo">
+    <input type="text" pInputText placeholder="Login" formControlName="login" />
+
+    <p-password
+      placeholder="Password"
+      formControlName="password"
+      [feedback]="false"
+      [toggleMask]="true"
+      [inputStyle]="{ width: '450px' }"
+    ></p-password>
+
+    <input type="text" pInputText placeholder="Phone Number" formControlName="phoneNumber" />
+    <input type="text" pInputText placeholder="Address" formControlName="address" />
+    <input type="text" pInputText placeholder="Email" formControlName="email" />
+    <button pButton type="submit" (click)="saveData()" [disabled]="this.userInfo.invalid">
+      Save Changes
+    </button>
+  </form>
+</div>
