@@ -1,7 +1,9 @@
+/* eslint-disable import/named */
 /* eslint-disable import/no-extraneous-dependencies */
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { Worker } from '../worker.interface';
 import { WorkersService } from '../workers.service';
@@ -12,7 +14,7 @@ import { WorkersService } from '../workers.service';
   styleUrls: ['./workers-table.component.scss'],
   providers: [MessageService, ConfirmationService],
 })
-export class WorkersTableComponent {
+export class WorkersTableComponent implements OnDestroy {
   public workersList: Array<Worker>;
 
   public workerDialog: boolean;
@@ -21,6 +23,8 @@ export class WorkersTableComponent {
 
   public submitted: boolean;
 
+  private destroy$ = new Subject();
+
   constructor(
     private workersService: WorkersService,
     private messageService: MessageService,
@@ -28,7 +32,10 @@ export class WorkersTableComponent {
     private authService: AuthService,
     private router: Router,
   ) {
-    this.workersService.getWorkers().subscribe((res: any) => (this.workersList = res.data));
+    this.workersService
+      .getWorkers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: any) => (this.workersList = res.data));
   }
 
   public openNew() {
@@ -82,9 +89,12 @@ export class WorkersTableComponent {
     this.submitted = true;
 
     if (this.worker.fullName.trim()) {
-      this.workersService.addWorker(this.worker).subscribe((res) => {
-        console.log(res);
-      });
+      this.workersService
+        .addWorker(this.worker)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res) => {
+          console.log(res);
+        });
       if (this.worker._id) {
         this.workersList[this.findIndexById(this.worker._id)] = this.worker;
         this.messageService.add({
@@ -140,5 +150,10 @@ export class WorkersTableComponent {
     if (!worker.team) return 'No info about city';
     if (worker.team.includes('Mkp')) return 'Maykop';
     if (worker.team.includes('Tgn')) return 'Taganrog';
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(null);
+    this.destroy$.complete();
   }
 }
